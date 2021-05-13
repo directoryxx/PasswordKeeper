@@ -1,5 +1,5 @@
 const { sequelize } = require('../db/models');
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, query } = require('express-validator');
 const fs = require('fs');
 const { generateKeyPair } = require('crypto');
 const fse = require('fs-extra')
@@ -12,8 +12,8 @@ exports.generate = async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    let downloadable = (req.body.downloadable === undefined || req.body.downloadable == "" || req.body.downloadable != 1) ? false : true; 
-    let passphrase = (req.body.keyphrase === undefined || req.body.keyphrase == "") ? '' : req.body.keyphrase; 
+    let downloadable = (req.query.downloadable === undefined || req.query.downloadable == "" || req.query.downloadable != 1) ? false : true; 
+    let passphrase = (req.query.keyphrase === undefined || req.query.keyphrase == "") ? '' : req.query.keyphrase; 
 
     generateKeyPair('rsa', {
         modulusLength: 4096,
@@ -69,8 +69,8 @@ exports.validate = (method) => {
   switch (method) {
     case 'generate': {
         return [ 
-            body('downloadable').isBoolean().optional({nullable:true}),
-            body('keyphrase').optional({ nullable: true }),
+            query('downloadable').isBoolean().optional({nullable:true}),
+            query('keyphrase').optional({ nullable: true }),
         ];   
     }
 

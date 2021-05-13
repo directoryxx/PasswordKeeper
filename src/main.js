@@ -13,6 +13,7 @@ const indexRoutes = require('./routes/index');
 const appRoutes = require('./routes/app');
 const authRoutes = require('./routes/auth');
 const keygenRoutes = require('./routes/keygen');
+const cryptRoutes = require('./routes/crypt');
 const jsonHandler = require('./error/json');
 const multer = require('multer');
 const forms = multer();
@@ -32,6 +33,7 @@ app.use('/', indexRoutes);
 app.use('/app', appRoutes);
 app.use('/auth', authRoutes);
 app.use('/keygen', auth ,keygenRoutes);
+app.use('/crypt', auth ,cryptRoutes);
 
 app.use(jsonHandler);
 

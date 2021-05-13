@@ -3,7 +3,7 @@ var router = express.Router();
 const keygen = require('../controller/keygenController');
 
 
-router.get('/test', keygen.validate('generate') ,keygen.generate);
+router.get('/', keygen.validate('generate') ,keygen.generate);
 
 
 module.exports = router;

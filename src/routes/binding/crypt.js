@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const crypt = require('../controller/cryptController');
-const { sequelize } = require('../db/models');
+const { sequelize } = require('../../db/models');
 
 // Route Binding 
-router.param('crypt', async function(req, res, next) { 
+const test = router.param('crypt', async function(req, res, next) { 
     // if ":user" placeholder in any of the router's route definitions 
     // it will be intercepted by this middleware 
 
@@ -31,9 +30,4 @@ router.param('crypt', async function(req, res, next) {
     });
 }); 
 
-router.post('/enc', crypt.encrypt);
-router.post('/dec/:crypt', crypt.decrypt);
-
-
-
-module.exports = router;
+module.exports = test;

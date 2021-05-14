@@ -18,7 +18,6 @@ exports.encrypt = async (req, res, next) => {
           password: encPassword,
           UserId: user.id,
       }).then(function(vault){
-        // const token = user.generateToken();
         res.status(201).send({
             status: res.statusCode,
             success: true
@@ -40,9 +39,6 @@ exports.decrypt = async (req, res, next) => {
   const vault = req.vault;
 
   const init = sequelize.models.Vault;
-
-  console.log(user.id);
-  console.log(vault.UserId);
 
   if(user.id != vault.UserId){
     res.status(404).send({
@@ -85,25 +81,6 @@ exports.decrypt = async (req, res, next) => {
         error: e,
     });
   }
-
-  // var encUrl = publicEncrypt(req.body.privkey, Buffer.from(req.body.url));
-  // var encUsername = publicEncrypt(req.body.privkey, Buffer.from(req.body.username));
-  // var encPassword = publicEncrypt(req.body.privkey, Buffer.from(req.body.password));
-
-  // const vault = sequelize.models.Vault;
-    
-  // vault.create({
-  //     url: encUrl,
-  //     username: encUsername,
-  //     password: encPassword,
-  //     UserId: user.id,
-  // }).then(function(vault){
-  //   // const token = user.generateToken();
-  //   res.status(201).send({
-  //       status: res.statusCode,
-  //       success: true
-  //   });
-  // });
 }
 
 

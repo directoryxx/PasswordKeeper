@@ -15,7 +15,7 @@ exports.generate = async (req, res, next) => {
     let downloadable = (req.query.downloadable === undefined || req.query.downloadable == "" || req.query.downloadable != 1) ? false : true; 
     let passphrase = (req.query.keyphrase === undefined || req.query.keyphrase == "") ? '' : req.query.keyphrase; 
 
-    generateKeyPair('rsa', {
+    await generateKeyPair('rsa', {
         modulusLength: 4096,
         publicKeyEncoding: {
             type: "spki",

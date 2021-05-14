@@ -1,6 +1,9 @@
 'use strict';
 
 const express = require('express');
+const formData = require("express-form-data");
+const os = require("os");
+require('buffer').Buffer;
 require('dotenv/config');
 
 // Constants
@@ -15,18 +18,32 @@ const authRoutes = require('./routes/auth');
 const keygenRoutes = require('./routes/keygen');
 const cryptRoutes = require('./routes/crypt');
 const jsonHandler = require('./error/json');
-const multer = require('multer');
-const forms = multer();
+// const multer = require('multer');
+// const forms = multer();
 const zip = require('express-easy-zip');
 
 
 //Middleware
 const auth = require('./middleware/auth');
 
+// Options Form data
+const options = {
+    uploadDir: os.tmpdir(),
+    autoClean: true
+};
+
 app.use(zip());
-app.use(forms.array()); 
-app.use(express.urlencoded({ extended: true }))
+// app.use(forms.array()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// parse data with connect-multiparty. 
+app.use(formData.parse(options));
+// delete from the request all empty files (size == 0)
+app.use(formData.format());
+// change the file objects to fs.ReadStream 
+app.use(formData.stream());
+// union the body and the files
+app.use(formData.union());
 
 // Route
 app.use('/', indexRoutes);

@@ -4,7 +4,8 @@ const { sequelize } = require('../db/models');
 const authUser = async (req, res, next) => {
   try {
     // getTokenFromHeader
-    const token = req.header('Authorization').replace('Bearer ', '')
+    const token = req.header('Authorization').replace('Bearer ', '');
+    console.log(token);
     // verifyToken
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

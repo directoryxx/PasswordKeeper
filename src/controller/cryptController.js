@@ -1,18 +1,29 @@
 const { publicEncrypt } = require('crypto');
+require('buffer').Buffer;
+const { sequelize } = require('../db/models');
 
 exports.encrypt = async (req, res, next) => {
-    // Validation
-    const errors = validationResult(req);
-    console.log(errors);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    const user = req.user;
 
-    var encUrl = publicEncrypt(req.body.pubkey, req.body.url);
-    var encUsername = publicEncrypt(req.body.pubkey, req.body.username);
-    var encPassword = publicEncrypt(req.body.pubkey, req.body.password);
+    console.log(typeof req.body.url);
+    var encUrl = publicEncrypt(req.body.pubkey, Buffer.from(req.body.url));
+    var encUsername = publicEncrypt(req.body.pubkey, Buffer.from(req.body.username));
+    var encPassword = publicEncrypt(req.body.pubkey, Buffer.from(req.body.password));
 
-    console.log(encUrl);
+    const vault = sequelize.models.Vault;
+      
+    vault.create({
+        url: encUrl,
+        username: encUsername,
+        password: encPassword,
+        UserId: user.id,
+    }).then(function(vault){
+      // const token = user.generateToken();
+      res.status(201).send({
+          status: res.statusCode,
+          success: true
+      });
+    });
 }
 
 

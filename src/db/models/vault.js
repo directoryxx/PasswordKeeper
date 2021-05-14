@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Vault.init({
-    url: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
-    notes: DataTypes.STRING
+    url: DataTypes.BLOB('long'),
+    username: DataTypes.BLOB('long'),
+    password: DataTypes.BLOB('long'),
+    UserId: DataTypes.INTEGER,
+    notes: DataTypes.BLOB('long')
   }, {
     sequelize,
     modelName: 'Vault',

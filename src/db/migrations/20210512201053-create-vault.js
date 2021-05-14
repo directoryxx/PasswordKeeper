@@ -9,15 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
-      user_id: {
+      UserId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users', // name of Target model

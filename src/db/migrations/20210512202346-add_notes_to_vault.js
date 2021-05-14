@@ -11,7 +11,7 @@ module.exports = {
      await queryInterface.addColumn('Vaults', 'notes',
       { 
         allowNull: true,
-        type: Sequelize.STRING        
+        type: Sequelize.BLOB('long')   
       }
     );
   },
